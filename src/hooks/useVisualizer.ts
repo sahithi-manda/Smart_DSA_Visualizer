@@ -7,6 +7,10 @@ export function useVisualizer(algorithmId: string, initialSize: number = 10) {
   const [inputArray, setInputArray] = useState<number[]>([]);
   const [searchTarget, setSearchTarget] = useState<number>(34);
   const [steps, setSteps] = useState<AlgorithmStep[]>([]);
+  // Which algorithm the current steps were generated for. When the user switches
+  // algorithms, the old steps survive one render before the effect regenerates
+  // them; exposing them would hand e.g. an array snapshot to the graph view.
+  const [stepsOwner, setStepsOwner] = useState<string | null>(null);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [speed, setSpeed] = useState<number>(300); // ms per step
@@ -19,6 +23,7 @@ export function useVisualizer(algorithmId: string, initialSize: number = 10) {
       setInputArray(arr);
       const generatedSteps = getAlgorithmSteps(algorithmId, arr, { searchTarget });
       setSteps(generatedSteps);
+      setStepsOwner(algorithmId);
       setCurrentStepIndex(0);
       setIsPlaying(false);
     },
@@ -32,6 +37,7 @@ export function useVisualizer(algorithmId: string, initialSize: number = 10) {
       setArraySize(customArr.length);
       const generatedSteps = getAlgorithmSteps(algorithmId, customArr, { searchTarget });
       setSteps(generatedSteps);
+      setStepsOwner(algorithmId);
       setCurrentStepIndex(0);
       setIsPlaying(false);
     },
@@ -93,8 +99,9 @@ export function useVisualizer(algorithmId: string, initialSize: number = 10) {
     setCurrentStepIndex(0);
   };
 
-  const currentStep = steps[currentStepIndex] || null;
-  const isFinished = currentStepIndex >= steps.length - 1 && steps.length > 0;
+  const activeSteps = stepsOwner === algorithmId ? steps : [];
+  const currentStep = activeSteps[currentStepIndex] || null;
+  const isFinished = currentStepIndex >= activeSteps.length - 1 && activeSteps.length > 0;
 
   return {
     inputArray,
@@ -102,7 +109,7 @@ export function useVisualizer(algorithmId: string, initialSize: number = 10) {
     setArraySize,
     searchTarget,
     setSearchTarget,
-    steps,
+    steps: activeSteps,
     currentStepIndex,
     currentStep,
     isPlaying,
