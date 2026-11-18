@@ -1,6 +1,18 @@
 # Smart DSA Visualizer
 
-An interactive, production-ready web application designed for students and developers to visually master Data Structures & Algorithms (DSA) through 60fps step-by-step animations, synchronized multi-language code highlighting, dynamic human-readable explanations, real-time metrics, and algorithm comparison utilities.
+An interactive web app for learning Data Structures & Algorithms through step-by-step animations, synchronized code highlighting, plain-language explanations of every step, live operation counts and side-by-side algorithm comparison.
+
+![React](https://img.shields.io/badge/React_19-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
+![Vitest](https://img.shields.io/badge/tests-39_passing-6E9F18?logo=vitest&logoColor=white)
+
+![Quick Sort visualization](docs/screenshots/sorting.png)
+
+| Dijkstra's shortest path | Comparison mode |
+|---|---|
+| ![Dijkstra](docs/screenshots/graph.png) | ![Compare](docs/screenshots/compare.png) |
 
 ---
 
@@ -8,7 +20,7 @@ An interactive, production-ready web application designed for students and devel
 
 Data Structures and Algorithms are fundamental to computer science and software engineering, yet standard textbook pseudocode and static diagrams often fail to convey the dynamic flow of pointers, state mutations, and recursion loops.
 
-**Smart DSA Visualizer** was created as a serious portfolio application to bridge this gap. Instead of hardcoded video clips, it features a fully decoupled, state-driven execution engine that records high-granularity snapshot streams, allowing users to step forward, step backward, time-travel, inspect comparisons/swaps, and read humanized natural language breakdowns for every single micro-operation.
+**Smart DSA Visualizer** was built to bridge this gap. Instead of hardcoded video clips, it features a fully decoupled, state-driven execution engine that records high-granularity snapshot streams, allowing users to step forward, step backward, time-travel, inspect comparisons/swaps, and read humanized natural language breakdowns for every single micro-operation.
 
 ---
 
@@ -71,8 +83,8 @@ src/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/smart-dsa-visualizer.git
-   cd smart-dsa-visualizer
+   git clone https://github.com/sahithi-manda/Smart_DSA_Visualizer.git
+   cd Smart_DSA_Visualizer
    ```
 
 2. **Install dependencies**:
@@ -94,7 +106,7 @@ src/
 
 ## Running Unit Tests
 
-Unit tests verify algorithmic correctness across edge cases (empty arrays, duplicate values, reverse sorted, single elements, negative numbers):
+39 unit tests cover algorithm correctness across edge cases (empty arrays, duplicate values, reverse sorted, single elements, negative numbers), plus a regression test that graph algorithms receive a valid graph from the engine:
 
 ```bash
 npx vitest run
@@ -104,4 +116,4 @@ npx vitest run
 
 ## License
 
-MIT License. Designed & Built for Educational & Portfolio Excellence.
+MIT License.
