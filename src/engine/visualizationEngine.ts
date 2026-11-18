@@ -38,6 +38,15 @@ export const SAMPLE_GRAPH: GraphData = {
   ],
 };
 
+// The visualizer hook always passes a random number array as input. Graph
+// algorithms need a graph, so fall back to the sample graph for anything else.
+function toGraph(inputData: unknown): GraphData {
+  const candidate = inputData as Partial<GraphData> | undefined;
+  return candidate && Array.isArray(candidate.nodes) && Array.isArray(candidate.edges)
+    ? (candidate as GraphData)
+    : SAMPLE_GRAPH;
+}
+
 export function getAlgorithmSteps(
   algorithmId: string,
   inputData: any,
@@ -94,13 +103,13 @@ export function getAlgorithmSteps(
     case 'binary-heap':
       return generateHeapSteps(inputData || [40, 10, 30, 50, 20]);
     case 'bfs':
-      return generateBFSSteps(inputData || SAMPLE_GRAPH, 'A', 'F');
+      return generateBFSSteps(toGraph(inputData), 'A', 'F');
     case 'dfs':
-      return generateDFSSteps(inputData || SAMPLE_GRAPH, 'A', 'F');
+      return generateDFSSteps(toGraph(inputData), 'A', 'F');
     case 'dijkstra':
-      return generateDijkstraSteps(inputData || SAMPLE_GRAPH, 'A', 'F');
+      return generateDijkstraSteps(toGraph(inputData), 'A', 'F');
     case 'a-star':
-      return generateAStarSteps(inputData || SAMPLE_GRAPH, 'A', 'F');
+      return generateAStarSteps(toGraph(inputData), 'A', 'F');
     default:
       return generateBubbleSortSteps(inputData || [45, 12, 89, 34, 67]);
   }
